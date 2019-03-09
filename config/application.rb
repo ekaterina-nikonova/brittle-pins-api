@@ -19,6 +19,11 @@ Bundler.require(*Rails.groups)
 
 module MakeSenseApi
   class Application < Rails::Application
+    # Use UUID by default as primary keys
+    # config.generators do |generator|
+    #   generator.orm :active_record, primary_key_type: :uuid
+    # end
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
@@ -31,5 +36,6 @@ module MakeSenseApi
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
   end
 end
