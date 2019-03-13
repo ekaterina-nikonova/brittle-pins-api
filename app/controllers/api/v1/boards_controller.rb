@@ -36,6 +36,10 @@ module Api::V1
         render json: @board.errors, status: :unprocessable_entity
       end
     end
+
+    def components
+      render json: Board.find(params[:board_id]).components
+    end
   
     private
   
