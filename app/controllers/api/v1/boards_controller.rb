@@ -8,6 +8,11 @@ module Api::V1
     end
   
     def show
+      if @board.image.attached?
+        render json: @board.attributes.merge({ image: url_for(@board.image) })
+        return
+      end
+
       render json: @board
     end
   
