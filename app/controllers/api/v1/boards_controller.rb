@@ -4,16 +4,15 @@ module Api::V1
   
     def index
       @boards = Board.order(:created_at)
-      render json: @boards
+
+      boards_with_images = @boards.map do |board|
+        with_image(board)
+      end
+      render json: boards_with_images
     end
   
     def show
-      if @board.image.attached?
-        render json: @board.attributes.merge({ image: url_for(@board.image) })
-        return
-      end
-
-      render json: @board
+      render json: with_image(@board)
     end
   
     def create
@@ -54,6 +53,14 @@ module Api::V1
   
     def board_params
       params.require(:board).permit(:name, :description)
+    end
+
+    def with_image board
+      if board.image.attached?
+        board.attributes.merge({ image: url_for(board.image) })
+      else
+        board
+      end
     end
   end
 end
