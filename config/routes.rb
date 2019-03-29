@@ -5,6 +5,8 @@ Rails.application.routes.draw do
         get 'components' => :components
       end
 
+      resources :uploads
+
       resources :components
     end
   end
