@@ -39,6 +39,7 @@ group :development, :test do
   gem 'rspec'
   # Test suite run at CI/CD
   gem 'rspec-rails'
+  gem 'factory_bot_rails'
 
   gem 'foreman'
 end
