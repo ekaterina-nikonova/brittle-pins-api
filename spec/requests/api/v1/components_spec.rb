@@ -72,4 +72,24 @@ RSpec.describe Api::V1::ComponentsController, type: :controller do
       expect(response).not_to be_successful
     end
   end
+
+  describe 'DELETE destroy' do
+    it 'destroys a component' do
+      post :create, params: { component: { name: 'c' } }
+      expect(response).to be_successful
+      expect(Component.all.length).to eq(1)
+
+      delete :destroy, params: { id: Component.last.id }
+      expect(response).to be_successful
+      expect(Component.all.length).to eq(0)
+    end
+
+    it 'can return an error' do
+      allow_any_instance_of(Component).to receive(:destroy).and_return(false)
+      post :create, params: { component: { name: 'c' } }
+      delete :destroy, params: { id: Component.last.id }
+
+      expect(response).not_to be_successful
+    end
+  end
 end
