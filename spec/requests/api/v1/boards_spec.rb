@@ -40,6 +40,12 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
       expect(Board.last.name).to eq(name)
       expect(Board.last.description).to eq(description)
     end
+
+    it 'can return an error' do
+      allow_any_instance_of(Board).to receive(:save).and_return(false)
+      post :create, params: { board: { name: 'a', description: 'b' } }
+      expect(response.status).to eq(422)
+    end
   end
 
   describe 'PATCH update' do
@@ -54,6 +60,14 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
       expect(Board.last.name).to eq('name 2')
       expect(Board.last.description).to eq('description 2')
     end
+
+    it 'can return an error' do
+      allow_any_instance_of(Board).to receive(:update).and_return(false)
+      board = build :board
+      board.save
+      patch :update, params: { id: board.id, board: { name: 'new name' } }
+      expect(response.status).to eq(422)
+    end
   end
 
   describe 'DELETE destroy' do
@@ -65,6 +79,14 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
 
       delete :destroy, params: { id: id }
       expect(Board.all.length).to eq(0)
+    end
+
+    it 'can return an error' do
+      allow_any_instance_of(Board).to receive(:destroy).and_return(false)
+      board = build :board
+      board.save
+      delete :destroy, params: { id: board.id }
+      expect(response.status).to eq(422)
     end
   end
 
