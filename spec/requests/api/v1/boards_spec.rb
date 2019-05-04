@@ -48,11 +48,34 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
                                        description: 'description 1'} }
       id = Board.last.id
 
-      patch :update, params: {id: id, board: { 
-                                        name: 'name 2',
+      patch :update, params: { id: id,
+                               board: { name: 'name 2',
                                         description: 'description 2'} }
       expect(Board.last.name).to eq('name 2')
       expect(Board.last.description).to eq('description 2')
+    end
+  end
+
+  describe 'DELETE destroy' do
+    it 'destroys a board' do
+      post :create, params: { board: { name: '' } }
+      expect(Board.all.length).to eq(1)
+
+      id = Board.last.id
+
+      delete :destroy, params: { id: id }
+      expect(Board.all.length).to eq(0)
+    end
+  end
+
+  describe 'GET components' do
+    it 'retrieves components for a board' do
+      board = create(:board_with_components)
+      get :components, params: { board_id: board.id }
+      json = JSON.parse(response.body)
+
+      expect(response).to be_successful
+      expect(json.length).to eq(15)
     end
   end
 end
