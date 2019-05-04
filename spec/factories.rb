@@ -17,5 +17,11 @@ FactoryBot.define do
         create_list(:component, evaluator.components_count, boards: [board])
       end
     end
+
+    trait :with_image do
+      image { fixture_file_upload(
+        Rails.root.join('spec', 'support', 'assets', 'test.png')
+      )}
+    end
   end
 end

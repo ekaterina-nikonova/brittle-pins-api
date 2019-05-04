@@ -5,7 +5,7 @@ require 'rails_helper'
 describe 'Boards API' do
   it 'returns a list of boards' do
     create_list(:board, 10)
-    
+
     get '/api/v1/boards'
     json = JSON.parse(response.body)
 
