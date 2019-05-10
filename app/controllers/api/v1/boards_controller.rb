@@ -1,9 +1,10 @@
 module Api::V1
   class BoardsController < ApplicationController
+    before_action :authorize_access_request!
     before_action :set_board, only: [:show, :update, :destroy]
   
     def index
-      @boards = Board.order(:created_at)
+      @boards = current_user.boards.order(:created_at)
 
       boards_with_images = @boards.map do |board|
         with_image(board)
@@ -16,7 +17,7 @@ module Api::V1
     end
   
     def create
-      @board = Board.new(board_params)
+      @board = current_user.boards.new(board_params)
   
       if @board.save
         render json: @board, status: :created
@@ -48,7 +49,7 @@ module Api::V1
     private
   
     def set_board
-      @board = Board.find(params[:id])
+      @board = current_user.boards.find(params[:id])
     end
   
     def board_params

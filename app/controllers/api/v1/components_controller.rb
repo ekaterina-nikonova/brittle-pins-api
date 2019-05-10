@@ -1,9 +1,10 @@
 module Api::V1
   class ComponentsController < ApplicationController
+    before_action :authorize_access_request!
     before_action :set_component, only: [:show, :update, :destroy]
   
     def index
-      @components = Component.order(:created_at)
+      @components = current_user.components.order(:created_at)
       render json: @components
     end
   
@@ -12,7 +13,7 @@ module Api::V1
     end
   
     def create
-      @component = Component.new(component_params)
+      @component = current_user.components.new(component_params)
   
       if @component.save
         render json: @component, status: :created
@@ -40,7 +41,7 @@ module Api::V1
     private
   
     def set_component
-      @component = Component.find(params[:id])
+      @component = current_user.components.find(params[:id])
     end
   
     def component_params
