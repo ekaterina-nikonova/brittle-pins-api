@@ -1,3 +1,5 @@
 # frozen_string_literal: true
 
-JWTSessions.encryption_key = Rails.application.secrets.secret_key_base
+key = Rails.env.test? ? SecureRandom.hex(24) : Rails.application.secrets.secret_key_base
+
+JWTSessions.encryption_key = key

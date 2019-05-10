@@ -2,17 +2,20 @@ FactoryBot.define do
   factory :user do
     email { "john@doe.com" }
     username { "john-doe" }
-    password_digest { "johndoe123" }
+    password { "johndoe123" }
+    password_confirmation { "johndoe123" }
   end
 
   factory :component do
     name { 'test component name' }
     description { 'test component description' }
+    user
   end
 
   factory :board do
     name { 'test board name' }
     description { 'test board description' }
+    user
 
     factory :board_with_components do
       transient do
