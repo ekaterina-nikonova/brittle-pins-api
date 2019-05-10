@@ -1,4 +1,10 @@
 FactoryBot.define do
+  factory :user do
+    email { "john@doe.com" }
+    username { "john-doe" }
+    password_digest { "johndoe123" }
+  end
+
   factory :component do
     name { 'test component name' }
     description { 'test component description' }

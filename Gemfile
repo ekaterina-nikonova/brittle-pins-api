@@ -12,9 +12,12 @@ gem 'puma', '~> 3.11'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
+# JWT authentication;
+# see https://blog.usejournal.com/rails-api-jwt-auth-vuejs-spa-eb4cf740a3ae
+gem 'jwt_sessions', '~> 2'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
