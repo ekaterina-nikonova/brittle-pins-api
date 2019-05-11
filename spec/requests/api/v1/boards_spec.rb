@@ -5,9 +5,6 @@ require 'rails_helper'
 RSpec.describe Api::V1::BoardsController, type: :controller do
   let(:board_with_image) { build :board, :with_image }
   let(:user) { create(:user) }
-  let(:board_attrs) {
-    { name: 'test board', description: 'test descr' }
-  }
 
   before do
     payload = { user_id: user.id }
@@ -16,7 +13,7 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
   end
 
   describe 'GET index' do
-    let!(:board) { create(:board, user: user) }
+    let!(:boards) { create_list(:board, 20, user: user) }
 
     it 'returns a list of boards' do
       request.cookies[JWTSessions.access_cookie] = @tokens[:access]
@@ -25,7 +22,7 @@ RSpec.describe Api::V1::BoardsController, type: :controller do
       json = JSON.parse(response.body)
 
       expect(response).to be_successful
-      expect(json.length).to eq(1)
+      expect(json.length).to eq(20)
     end
 
     it 'is unauth without cookie' do
