@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ComponentsController, type: :controller do
   let(:user) { create(:user) }
-  let(:board) { create(:board) }
+  let(:board) { create(:board, user: user) }
 
   before do
     payload = { user_id: user.id }

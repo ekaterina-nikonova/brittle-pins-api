@@ -9,13 +9,11 @@ FactoryBot.define do
   factory :component do
     name { 'test component name' }
     description { 'test component description' }
-    user
   end
 
   factory :board do
     name { 'test board name' }
     description { 'test board description' }
-    user
 
     factory :board_with_components do
       transient do
@@ -23,7 +21,7 @@ FactoryBot.define do
       end
 
       after(:create) do |board, evaluator|
-        create_list(:component, evaluator.components_count, boards: [board])
+        create_list(:component, evaluator.components_count, boards: [board], user: board.user )
       end
     end
 
