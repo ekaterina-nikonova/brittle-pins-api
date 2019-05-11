@@ -4,6 +4,8 @@
 # pt. 14
 module Api::V1
   class SigninController < ApplicationController
+    before_action :authorize_access_request!, only: [:destroy]
+
     def create
       user = User.find_by(email: params[:email])
 
@@ -19,6 +21,18 @@ module Api::V1
       else
         not_authorized
       end
+    end
+
+    def destroy
+      session = JWTSessions::Session.new(payload: payload)
+      session.flush_by_access_payload
+      render json: :ok
+    end
+
+    private
+
+    def not_found
+      render json: { error: 'Incorrect email or password' }, status: :not_found
     end
   end
 end
