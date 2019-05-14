@@ -3,16 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe Board, type: :model do
-  let(:board_with_image) { build :board, :with_image }
+  let(:user) { build :user }
+  let(:board_with_image) { build :board, :with_image, user: user }
 
   describe 'instance' do
     it 'is valid' do
-      board = build(:board)
+      board = build(:board, user: user)
       expect(board.valid?).to be(true)
     end
 
     it 'can have components' do
-      board = create(:board_with_components)
+      board = create(:board_with_components, user: user)
       expect(board.components.length).to eq(15)
     end
 

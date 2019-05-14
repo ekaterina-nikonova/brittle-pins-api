@@ -1,4 +1,11 @@
 FactoryBot.define do
+  factory :user do
+    email { "john@doe.com" }
+    username { "john-doe" }
+    password { "johndoe123" }
+    password_confirmation { "johndoe123" }
+  end
+
   factory :component do
     name { 'test component name' }
     description { 'test component description' }
@@ -14,7 +21,7 @@ FactoryBot.define do
       end
 
       after(:create) do |board, evaluator|
-        create_list(:component, evaluator.components_count, boards: [board])
+        create_list(:component, evaluator.components_count, boards: [board], user: board.user )
       end
     end
 
