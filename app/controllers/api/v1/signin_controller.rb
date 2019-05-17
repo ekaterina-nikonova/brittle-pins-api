@@ -16,6 +16,7 @@ module Api::V1
         response.set_cookie(JWTSessions.access_cookie,
                             value: tokens[:access],
                             httponly: true,
+                            expires: 1.month.from_now,
                             secure: Rails.env.production?)
         render json: { csrf: tokens[:csrf] }
       else
