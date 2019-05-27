@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Allowed origins depending on environment
-  config.allowed_cors_origins = ['https://brittle-pins.herokuapp.com']
+  config.allowed_cors_origins = ['brittle-pins.herokuapp.com']
 end
