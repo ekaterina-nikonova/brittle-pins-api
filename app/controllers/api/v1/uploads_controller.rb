@@ -38,7 +38,8 @@ module Api::V1
 
       parent = { type: upload_params['parent'].capitalize,
                  id: upload_params['parent_id'] }
-      @parent = parent[:type].constantize.find(parent[:id])
+      table = parent[:type].constantize.table_name.to_sym
+      @parent = current_user.send(table).find(parent[:id])
     end
 
     def upload_params
