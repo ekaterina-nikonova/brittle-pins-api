@@ -1,0 +1,22 @@
+postgres: could not access directory "/usr/local/pgsql/data": No such file or directory
+Run initdb or pg_basebackup to initialize a PostgreSQL data directory.
+2019-05-26 15:28:47.639 CEST [59360] LOG:  listening on IPv6 address "::1", port 5432
+2019-05-26 15:28:47.639 CEST [59360] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-05-26 15:28:47.639 CEST [59360] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2019-05-26 15:28:47.652 CEST [59361] LOG:  database system was shut down at 2019-05-26 15:28:00 CEST
+2019-05-26 15:28:47.654 CEST [59360] LOG:  database system is ready to accept connections
+2019-05-26 16:28:27.632 CEST [59360] LOG:  received fast shutdown request
+2019-05-26 16:28:27.632 CEST [59360] LOG:  aborting any active transactions
+2019-05-26 16:28:27.633 CEST [59360] LOG:  background worker "logical replication launcher" (PID 59367) exited with exit code 1
+2019-05-26 16:28:27.633 CEST [59362] LOG:  shutting down
+2019-05-26 16:28:27.638 CEST [59360] LOG:  database system is shut down
+2019-05-26 20:28:22.375 CEST [60727] LOG:  listening on IPv6 address "::1", port 5432
+2019-05-26 20:28:22.376 CEST [60727] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2019-05-26 20:28:22.377 CEST [60727] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2019-05-26 20:28:22.386 CEST [60728] LOG:  database system was shut down at 2019-05-26 20:27:28 CEST
+2019-05-26 20:28:22.388 CEST [60727] LOG:  database system is ready to accept connections
+2019-05-26 20:28:37.212 CEST [60727] LOG:  received fast shutdown request
+2019-05-26 20:28:37.212 CEST [60727] LOG:  aborting any active transactions
+2019-05-26 20:28:37.213 CEST [60727] LOG:  background worker "logical replication launcher" (PID 60734) exited with exit code 1
+2019-05-26 20:28:37.213 CEST [60729] LOG:  shutting down
+2019-05-26 20:28:37.220 CEST [60727] LOG:  database system is shut down
