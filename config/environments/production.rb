@@ -30,7 +30,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :amazon
+  config.active_storage.service = :amazon_production
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
@@ -52,7 +52,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "make-sense-api_#{Rails.env}"
+  # config.active_job.queue_name_prefix = "brittle-pins-api_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
 
@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Allowed origins depending on environment
-  config.allowed_cors_origins = ['https://make-sense-app.herokuapp.com']
+  config.allowed_cors_origins = ['https://brittle-pins.herokuapp.com']
 end
