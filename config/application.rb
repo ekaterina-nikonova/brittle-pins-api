@@ -17,7 +17,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module MakeSenseApi
+module BrittlePinsApi
   class Application < Rails::Application
     # Use UUID by default as primary keys
     # config.generators do |generator|

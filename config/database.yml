@@ -32,7 +32,7 @@ development:
   # username: postgres
 
   # The password associated with the postgres role (username).
-  # password: make-sense-postgres
+  # password: brittle-pins-postgres
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: make-sense-api_production
-  username: make-sense-api
-  password: <%= ENV['MAKE-SENSE-API_DATABASE_PASSWORD'] %>
+  database: brittle-pins-api_production
+  username: brittle-pins-api
+  password: <%= ENV['BRITTLE-PINS-API_DATABASE_PASSWORD'] %>
