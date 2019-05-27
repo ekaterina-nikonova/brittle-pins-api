@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5dfe14d0-9882-4a6a-bf4e-743729b00b00" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Procfile.dev" beforeDir="false" afterPath="$PROJECT_DIR$/Procfile.dev" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/uploads_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/uploads_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/application.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/application.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/cable.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/cable.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/development.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/development.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/environments/production.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/production.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/storage.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/storage.yml" afterDir="false" />
-    </list>
+    <list default="true" id="5dfe14d0-9882-4a6a-bf4e-743729b00b00" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/log/" />
@@ -113,7 +103,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/uploads_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
+            <state relative-caret-position="660">
               <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
             </state>
           </provider>
@@ -336,18 +326,17 @@
       <updated>1558840249571</updated>
       <workItem from="1558840252308" duration="36000" />
       <workItem from="1558840300412" duration="1894000" />
-      <workItem from="1558842385716" duration="9003000" />
+      <workItem from="1558842385716" duration="9151000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10933000" />
+    <option name="totallyTimeSpent" value="11081000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1400" y="77" width="1400" height="1089" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2569956" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2569956" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Database Console" sideWeight="0.4992636" weight="0.32885906" />
@@ -359,7 +348,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Database Changes" order="7" sideWeight="0.4992636" weight="0.32885906" />
-      <window_info anchor="bottom" id="Version Control" order="8" visible="true" weight="0.24573721" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.24573721" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50073636" side_tool="true" weight="0.32885906" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -538,7 +527,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/uploads_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
+        <state relative-caret-position="660">
           <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
         </state>
       </provider>
