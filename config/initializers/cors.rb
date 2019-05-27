@@ -7,12 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # Rails.application.config.allowed_cors_origins
-    origins %w[
-      http://brittle-pins.herokuapp.com,
-      https://brittle-pins.herokuapp.com,
-      localhost:3000
-    ]
+    Rails.application.config.allowed_cors_origins
 
     resource '*',
       headers: :any,
