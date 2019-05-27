@@ -82,7 +82,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-pp '--- I am production ---'
+
   # Allowed origins depending on environment
-  config.allowed_cors_origins = ['brittle-pins.herokuapp.com']
+  config.allowed_cors_origins = %w(brittle-pins.herokuapp.com
+                                   http://brittle-pins.herokuapp.com
+                                   https://brittle-pins.herokuapp.com)
 end
