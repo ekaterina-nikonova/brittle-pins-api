@@ -3,7 +3,7 @@ require 'aws-sdk-s3'
 module Api::V1
   class UploadsController < ApplicationController
     pp '---***--- 0 ---***---'
-    # before_action :authorize_access_request!
+    before_action :authorize_access_request!
     pp '---***--- 0.5 ---***---'
     before_action :set_upload, only: [:create]
 
