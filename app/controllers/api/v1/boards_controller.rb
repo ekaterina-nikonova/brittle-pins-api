@@ -20,7 +20,9 @@ module Api::V1
       @board = current_user.boards.new(board_params)
   
       if @board.save
-        render json: @board, status: :created
+        # render json: @board, status: :created
+        ActionCable.server.broadcast 'boards_channel', render json: @board
+        head :ok
       else
         render json: @board.errors, status: :unprocessable_entity
       end
