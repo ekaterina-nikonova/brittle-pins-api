@@ -7,12 +7,10 @@ class ApplicationController < ActionController::API
   private
 
   def current_user
-    pp '---***--- 1-1 ---***---'
     @current_user ||= User.find(payload['user_id'])
   end
 
   def not_authorized
-    pp '---***--- 1-2 ---***---'
     render json: { error: 'Not authorized' }, status: :unauthorized
   end
 end
