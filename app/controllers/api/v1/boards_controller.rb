@@ -20,9 +20,8 @@ module Api::V1
       @board = current_user.boards.new(board_params)
   
       if @board.save
-        # render json: @board, status: :created
-        ActionCable.server.broadcast 'boards_channel', render json: @board
-        head :ok
+        ActionCable.server.broadcast 'boards_channel', { action: :create, data: @board }
+        render json: @board, status: :created
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -30,7 +29,8 @@ module Api::V1
   
     def update
       if @board.update(board_params)
-        render json: @board
+        ActionCable.server.broadcast 'boards_channel', { action: :update, data: with_image(@board) }
+        render json: @board, status: :created
       else
         render json: @board.errors, status: :unprocessable_entity
       end
@@ -38,6 +38,7 @@ module Api::V1
   
     def destroy
       if @board.destroy
+        ActionCable.server.broadcast 'boards_channel', action: :destroy, data: @board
         head :no_content, status: :ok
       else
         render json: @board.errors, status: :unprocessable_entity

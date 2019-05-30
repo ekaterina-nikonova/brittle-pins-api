@@ -18,7 +18,7 @@ module Api::V1
       @parent.send(upload_params[:type]).attach(upload_params[:file])
 
       response = { data: { error: nil, url: url_for(@parent.image) }}
-      render json: response      
+      render json: response
     end
 
     private
