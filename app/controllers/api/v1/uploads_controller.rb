@@ -17,7 +17,10 @@ module Api::V1
 
       @parent.send(upload_params[:type]).attach(upload_params[:file])
 
-      response = { data: { error: nil, url: url_for(@parent.image) }}
+      response = { data: { error: nil, url: url_for(@parent.send(upload_params[:type])) }}
+
+      ActionCable.server.broadcast set_channel(@parent),
+                                   { action: 'update', data: @parent.attributes }
       render json: response
     end
 
@@ -45,6 +48,10 @@ module Api::V1
 
     def upload_params
       params.permit(:file, :parent, :parent_id, :type)
+    end
+
+    def set_channel(parent)
+      return "#{parent.class.table_name}_channel"
     end
   end
 end
