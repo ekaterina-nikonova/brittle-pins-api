@@ -9,7 +9,7 @@ module Api::V1
       file = @upload.original_filename
 
       if upload_params[:type].eql? 'image'
-        unless is_image? @upload.original_filename
+        unless is_image? file
           render_wrong_format_error
           return
         end
@@ -20,7 +20,7 @@ module Api::V1
       response = { data: { error: nil, url: url_for(@parent.send(upload_params[:type])) }}
 
       ActionCable.server.broadcast set_channel(@parent),
-                                   { action: 'update', data: @parent.attributes }
+                                   set_data(@parent)
       render json: response
     end
 
@@ -52,6 +52,12 @@ module Api::V1
 
     def set_channel(parent)
       return "#{parent.class.table_name}_channel"
+    end
+
+    def set_data(parent)
+      type = upload_params[:type].to_sym
+      return { action: 'update',
+               data: parent.attributes.merge(Hash[type, url_for(@parent.send(type))]) }
     end
   end
 end
