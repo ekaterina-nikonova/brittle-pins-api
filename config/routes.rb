@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       resources :uploads
 
       resources :components
+
+      mount ActionCable.server => '/cable'
     end
   end
 end
