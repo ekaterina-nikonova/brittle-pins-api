@@ -17,7 +17,8 @@ module Api::V1
                             value: tokens[:access],
                             httponly: true,
                             expires: 1.month.from_now,
-                            secure: Rails.env.production?)
+                            # secure: Rails.env.production?,
+                            secure: false)
         render json: { csrf: tokens[:csrf] }
       else
         not_authorized
