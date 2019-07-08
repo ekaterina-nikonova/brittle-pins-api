@@ -35,7 +35,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   config.action_cable.url = 'wss://api.brittle-pins.com/cable'
-  config.action_cable.allowed_request_origins = [ 'http://brittle-pins.com' ]
+  config.action_cable.allowed_request_origins = [ 'https://brittle-pins.com' ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -84,5 +84,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Allowed origins depending on environment
-  config.allowed_cors_origins = ['http://brittle-pins.com']
+  config.allowed_cors_origins = ['https://brittle-pins.com']
 end
