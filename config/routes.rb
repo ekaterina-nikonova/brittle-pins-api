@@ -17,6 +17,10 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :users, only: %i[index destroy]
+
+        namespace :users do
+          resources :boards, only: %i[index]
+        end
       end
 
       mount ActionCable.server => '/cable'
