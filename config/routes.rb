@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
         namespace :users do
           resources :boards, only: %i[index]
+          resources :components, only: %i[index]
         end
       end
 
