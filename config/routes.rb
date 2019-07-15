@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'signin', to: 'signin#create'
       post 'refresh', to: 'refresh#create'
       delete 'signin', to: 'signin#destroy'
-      
+
       get 'me', controller: :users, action: :me
 
       resources :boards do
