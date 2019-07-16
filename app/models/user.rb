@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   has_many :boards
   has_many :components
+  has_many :invitations
 
   has_secure_password
 

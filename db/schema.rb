@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_15_102611) do
+ActiveRecord::Schema.define(version: 2019_07_16_152405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -59,6 +59,17 @@ ActiveRecord::Schema.define(version: 2019_07_15_102611) do
     t.index ["user_id"], name: "index_components_on_user_id"
   end
 
+  create_table "invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "code", null: false
+    t.string "email", null: false
+    t.datetime "accepted_at"
+    t.datetime "expires_at", default: "2019-07-23 14:53:31", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "user_id"
+    t.index ["user_id"], name: "index_invitations_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "username", null: false
@@ -71,4 +82,5 @@ ActiveRecord::Schema.define(version: 2019_07_15_102611) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "users"
   add_foreign_key "components", "users"
+  add_foreign_key "invitations", "users"
 end

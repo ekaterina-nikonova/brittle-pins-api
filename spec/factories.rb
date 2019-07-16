@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :invitation do
+    
+  end
+
   factory :user do
     email { "john@doe.com" }
     username { "john-doe" }
