@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_07_16_152405) do
     t.string "code", null: false
     t.string "email", null: false
     t.datetime "accepted_at"
-    t.datetime "expires_at", default: "2019-07-23 14:53:31", null: false
+    t.datetime "expires_at", default: "2019-07-23 16:46:14", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "user_id"
