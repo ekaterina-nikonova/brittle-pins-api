@@ -9,8 +9,9 @@ module Api::V1::Admin
     ROLES = %w[admin manager].freeze
 
     def create
-      @invitation = current_user.invitations.new(email: invitation_params[:email],
-                                                 code: generate_code)
+      @invitation = current_user.invitations.new(
+        email: invitation_params[:email]
+      )
       @invitation.save
       render json: @invitation
     end
@@ -32,12 +33,9 @@ module Api::V1::Admin
     end
 
     private
+
     def set_invitation
       @invitation = Invitation.find(params[:id])
-    end
-
-    def generate_code
-      [*'A'..'Z', *'a'..'z', *0..9].sample(8).join
     end
 
     def invitation_params

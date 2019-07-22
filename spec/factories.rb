@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :invitation do
-    
+    email { 'new-user@example.com' }
   end
 
   factory :user do
