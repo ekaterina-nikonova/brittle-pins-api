@@ -27,7 +27,7 @@ module Api::V1
 
     def create_user
       user = User.new(user_params)
-
+      accept_invitation(user.email)
       if user.save
         payload = { user_id: user.id, aud: [user.role] }
         session = JWTSessions::Session.new(payload: payload,
@@ -43,6 +43,11 @@ module Api::V1
         render json: { error: user.errors.full_messages.join(' ') },
                status: :unprocessable_entity
       end
+    end
+
+    def accept_invitation(email)
+      invitation = Invitation.find_by(email: email)
+      invitation.accept
     end
   end
 end

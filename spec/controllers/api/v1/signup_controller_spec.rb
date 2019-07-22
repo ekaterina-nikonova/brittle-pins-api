@@ -6,10 +6,12 @@ RSpec.describe Api::V1::SignupController, type: :controller do
   describe 'POST create' do
     let(:user) { build :user }
     let(:admin) { build :user, role: :admin }
-    let(:user_params) { { username: user.username,
-                          email: user.email,
-                          password: user.password,
-                          password_confirmation: user.password } }
+    let(:user_params) do
+      { username: user.username,
+        email: user.email,
+        password: user.password,
+        password_confirmation: user.password }
+    end
     let!(:invitation) { create :invitation, user: admin }
 
     it 'should fail if no invitation code provided' do
@@ -26,6 +28,12 @@ RSpec.describe Api::V1::SignupController, type: :controller do
     it 'should succeed if invitation code matches email' do
       post :create, params: user_params.merge(code: invitation.code)
       expect(response).to have_http_status(200)
+    end
+
+    it 'should change invitation acceptance datetime' do
+      post :create, params: user_params.merge(code: invitation.code)
+      invitation.reload
+      expect(invitation.accepted_at.nil?).to eq(false)
     end
 
     it 'returns http success' do

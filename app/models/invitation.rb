@@ -2,6 +2,11 @@ class Invitation < ApplicationRecord
   belongs_to :user
   before_validation :generate_code
 
+  def accept
+    self.accepted_at = DateTime.now
+    save
+  end
+
   private
 
   def generate_code
