@@ -4,28 +4,23 @@
 module Api::V1::Admin
   # Manage invitations for sign-ups
   class InvitationsController < ApplicationController
-    before_action :authorize_access_request!
+    before_action :authorize_access_request!, only: [:destroy]
     before_action :set_invitation, only: [:destroy]
     ROLES = %w[admin manager].freeze
 
     def create
-      @invitation = current_user.invitations.new(
+      @invitation = Invitation.new(
         email: invitation_params[:email]
       )
       @invitation.save
-      ::UserMailer.with(@invitation).invitation_email.deliver_later
-      render json: @invitation
+      head :created
     end
 
     def destroy
-      if current_user.role == 'admin'
-        if @invitation.destroy
-          head :no_content, status: :ok
-        else
-          render json: @invitation.errors, status: :unprocessable_entity
-        end
+      if @invitation.destroy
+        head :no_content
       else
-        head :no_content, status: :not_authorized
+        render json: @invitation.errors, status: :unprocessable_entity
       end
     end
 

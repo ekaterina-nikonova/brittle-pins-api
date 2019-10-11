@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SignupController, type: :controller do
         password: user.password,
         password_confirmation: user.password }
     end
-    let!(:invitation) { create :invitation, user: admin }
+    let!(:invitation) { create :invitation }
 
     it 'should fail if no invitation code provided' do
       expect { post :create, params: user_params }

@@ -9,70 +9,20 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
   let(:data) { { email: 'test@test.com' } }
 
   describe 'POST #create' do
-    context 'when current user is admin' do
-      it 'should create an invitation' do
-        sign_in_as(admin)
-        post :create, params: data
-        expect(response).to be_successful
-        expect(response).to have_http_status(200)
-      end
-
-      it 'should create an invitation belonging to the current user' do
-        sign_in_as(admin)
-        post :create, params: data
-        expect(Invitation.last.user_id).to eq admin.id
-      end
-
-      it 'should generate an 8-character code' do
-        sign_in_as(admin)
-        post :create, params: data
-        expect(response_json['code'].length).to eq 8
-      end
-
-      it 'should create an invitation for the specified email' do
-        sign_in_as(admin)
-        post :create, params: data
-        expect(response_json['email']).to eq data[:email]
-      end
-
-      it 'should invoke mailer' do
-        allow(::UserMailer).to receive(:with)
-        sign_in_as(admin)
-        post :create, params: data
-        expect(::UserMailer).to have_received(:with)
-      end
-
-      it 'should pass invitation to mailer' do
-        allow(::UserMailer).to receive(:with)
-        sign_in_as(admin)
-        post :create, params: data
-        expect(::UserMailer).to have_received(:with).with(Invitation.last)
-      end
-
-      it 'should call invitation email' do
-        allow(::UserMailer).to receive_message_chain(:with, :invitation_email)
-        sign_in_as(admin)
-        post :create, params: data
-        expect(::UserMailer.with(*args)).to have_received(:invitation_email)
-      end
+    it 'should create an invitation' do
+      post :create, params: data
+      expect(response).to be_successful
+      expect(response).to have_http_status(201)
     end
 
-    context 'when current user is manager' do
-      it 'should create an invitation' do
-        sign_in_as(manager)
-        post :create, params: data
-        expect(response).to be_successful
-        expect(response).to have_http_status(200)
-      end
+    it 'should generate an 8-character code' do
+      post :create, params: data
+      expect(Invitation.last[:code].length).to eq 8
     end
 
-    context 'when current user is user' do
-      it 'should not create an invitation' do
-        sign_in_as(user)
-        post :create, params: data
-        expect(response).not_to be_successful
-        expect(response).to have_http_status(403)
-      end
+    it 'should create an invitation for the specified email' do
+      post :create, params: data
+      expect(Invitation.last[:email]).to eq data[:email]
     end
   end
 
@@ -92,12 +42,12 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
     end
 
     context 'when current user is manager' do
-      it 'should not delete invitation' do
+      it 'should delete invitation with the provided id' do
         sign_in_as(manager)
         expect do
           delete :destroy, params: { id: Invitation.last.id }
-        end.to change(Invitation, :count).by(0)
-        expect(response).to have_http_status(401)
+        end.to change(Invitation, :count).by(-1)
+        expect(response).to have_http_status(:no_content)
       end
     end
 
@@ -107,7 +57,7 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         expect do
           delete :destroy, params: { id: Invitation.last.id }
         end.to change(Invitation, :count).by(0)
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
