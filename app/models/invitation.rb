@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+# Invitation requested before sign-up
 class Invitation < ApplicationRecord
   before_validation :generate_code
+  before_validation :set_expiration_date
 
   def accept
     self.accepted_at = DateTime.now
@@ -10,5 +14,9 @@ class Invitation < ApplicationRecord
 
   def generate_code
     self.code = [*'A'..'Z', *'a'..'z', *0..9].sample(8).join
+  end
+
+  def set_expiration_date
+    self.expires_at = 1.week.from_now
   end
 end
