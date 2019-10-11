@@ -9,11 +9,17 @@ module Api::V1::Admin
     ROLES = %w[admin manager].freeze
 
     def create
+      head :unprocessable_entity if taken?(invitation_params[:email])
+
       @invitation = Invitation.new(
         email: invitation_params[:email]
       )
-      @invitation.save
-      head :created
+
+      if @invitation.save
+        head :created
+      else
+        head :unprocessable_entity
+      end
     end
 
     def destroy
@@ -29,6 +35,10 @@ module Api::V1::Admin
     end
 
     private
+
+    def taken?(email)
+      User.where(email: email).exists?
+    end
 
     def set_invitation
       @invitation = Invitation.find(params[:id])

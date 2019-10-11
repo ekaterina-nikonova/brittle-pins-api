@@ -5,6 +5,10 @@ class Invitation < ApplicationRecord
   before_validation :generate_code
   before_validation :set_expiration_date
 
+  validates :email,
+            presence: true,
+            uniqueness: { case_sensitive: false }
+
   def accept
     self.accepted_at = DateTime.now
     save
