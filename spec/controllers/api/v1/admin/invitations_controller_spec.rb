@@ -15,6 +15,19 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
       expect(response).to have_http_status(201)
     end
 
+    it 'should not create invitation if email is taken by User' do
+      post :create, params: { email: user.email }
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'should not create invitation if email is used in Invitations' do
+      post :create, params: data
+      expect(response).to be_successful
+
+      post :create, params: data
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
     it 'should generate an 8-character code' do
       post :create, params: data
       expect(Invitation.last[:code].length).to eq 8

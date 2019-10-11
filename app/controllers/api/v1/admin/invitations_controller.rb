@@ -9,7 +9,7 @@ module Api::V1::Admin
     ROLES = %w[admin manager].freeze
 
     def create
-      head :unprocessable_entity if taken?(invitation_params[:email])
+      return head :unprocessable_entity if taken?(invitation_params[:email])
 
       @invitation = Invitation.new(
         email: invitation_params[:email]
