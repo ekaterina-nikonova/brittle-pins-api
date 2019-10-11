@@ -35,5 +35,34 @@ RSpec.describe Api::V1::Admin::UsersController, type: :controller do
       expect(response).to have_http_status 403
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'when current user is admin' do
+      it 'can delete a user' do
+        sign_in_as(admin)
+        expect {
+          delete :destroy, params: { id: manager.id }
+        }.to change(User, :count).by(-1)
+      end
+    end
+
+    context 'when current user is manager' do
+      it 'cannot delete a user' do
+        sign_in_as(manager)
+        expect {
+          delete :destroy, params: { id: user.id }
+        }.to change(User, :count).by(0)
+      end
+    end
+
+    context 'when current user is user' do
+      it 'cannot delete a user' do
+        sign_in_as(user)
+        expect {
+          delete :destroy, params: { id: manager.id }
+        }.to change(User, :count).by(0)
+      end
+    end
+  end
 end
 
