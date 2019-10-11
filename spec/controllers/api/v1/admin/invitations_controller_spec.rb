@@ -7,6 +7,7 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
   let!(:manager) { create(:user, role: :manager) }
   let!(:user) { create(:user) }
   let(:data) { { email: 'test@test.com' } }
+  let(:data2) { { email: 'test2@test.com' } }
 
   describe 'POST #create' do
     it 'should create an invitation' do
@@ -70,6 +71,45 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         expect do
           delete :destroy, params: { id: Invitation.last.id }
         end.to change(Invitation, :count).by(0)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
+  describe 'GET #index' do
+    before :each do
+      post :create, params: data
+      post :create, params: data2
+    end
+
+    context 'when current user is admin' do
+      it 'should show list of all invitations' do
+        sign_in_as(admin)
+        get :index
+        expect(response).to be_successful
+        expect(response_json.length).to eq(2)
+      end
+
+      it 'should only show id, code, and email (in this order)' do
+        sign_in_as(admin)
+        get :index
+        expect(response_json.first.keys).to eq %w[id code email]
+      end
+    end
+
+    context 'when current user is manager' do
+      it 'should show list of all invitations' do
+        sign_in_as(manager)
+        get :index
+        expect(response).to be_successful
+        expect(response_json.length).to eq(2)
+      end
+    end
+
+    context 'when current user is user' do
+      it 'should not show list of invitations' do
+        sign_in_as(user)
+        get :index
         expect(response).to have_http_status(:forbidden)
       end
     end

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :components
 
       namespace :admin do
-        resources :invitations, only: %i[create destroy]
+        resources :invitations, only: %i[index create destroy]
 
         resources :users, only: %i[index destroy]
 

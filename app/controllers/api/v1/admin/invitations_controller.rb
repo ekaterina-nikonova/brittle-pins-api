@@ -4,9 +4,14 @@
 module Api::V1::Admin
   # Manage invitations for sign-ups
   class InvitationsController < ApplicationController
-    before_action :authorize_access_request!, only: [:destroy]
+    before_action :authorize_access_request!, only: [:index, :destroy]
     before_action :set_invitation, only: [:destroy]
     ROLES = %w[admin manager].freeze
+
+    def index
+      @invitations = Invitation.all.order(:created_at)
+      render json: @invitations.as_json(only: %i[id code email])
+    end
 
     def create
       return head :unprocessable_entity if taken?(invitation_params[:email])
