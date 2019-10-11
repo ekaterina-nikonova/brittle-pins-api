@@ -1,5 +1,4 @@
 class Invitation < ApplicationRecord
-  belongs_to :user
   before_validation :generate_code
 
   def accept

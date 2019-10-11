@@ -13,6 +13,7 @@ module Api::V1::Admin
         email: invitation_params[:email]
       )
       @invitation.save
+      ::UserMailer.with(@invitation).invitation_email.deliver_later
       render json: @invitation
     end
 

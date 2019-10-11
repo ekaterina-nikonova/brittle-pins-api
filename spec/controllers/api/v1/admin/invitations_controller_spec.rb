@@ -34,6 +34,27 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         post :create, params: data
         expect(response_json['email']).to eq data[:email]
       end
+
+      it 'should invoke mailer' do
+        allow(::UserMailer).to receive(:with)
+        sign_in_as(admin)
+        post :create, params: data
+        expect(::UserMailer).to have_received(:with)
+      end
+
+      it 'should pass invitation to mailer' do
+        allow(::UserMailer).to receive(:with)
+        sign_in_as(admin)
+        post :create, params: data
+        expect(::UserMailer).to have_received(:with).with(Invitation.last)
+      end
+
+      it 'should call invitation email' do
+        allow(::UserMailer).to receive_message_chain(:with, :invitation_email)
+        sign_in_as(admin)
+        post :create, params: data
+        expect(::UserMailer.with(*args)).to have_received(:invitation_email)
+      end
     end
 
     context 'when current user is manager' do

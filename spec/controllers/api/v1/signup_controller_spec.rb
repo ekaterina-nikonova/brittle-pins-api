@@ -36,6 +36,12 @@ RSpec.describe Api::V1::SignupController, type: :controller do
       expect(invitation.accepted_at.nil?).to eq(false)
     end
 
+    it 'should set acceptance datetime in the future' do
+      post :create, params: user_params.merge(code: invitation.code)
+      invitation.reload
+      expect(invitation.accepted_at.after? invitation.created_at).to be(true)
+    end
+
     it 'returns http success' do
       post :create, params: user_params.merge(code: invitation.code)
       expect(response).to be_successful
