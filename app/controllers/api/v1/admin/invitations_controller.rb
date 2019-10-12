@@ -28,6 +28,8 @@ module Api::V1::Admin
     end
 
     def destroy
+      send_rejection_email
+
       if @invitation.destroy
         head :no_content
       else
@@ -47,6 +49,10 @@ module Api::V1::Admin
 
     def set_invitation
       @invitation = Invitation.find(params[:id])
+    end
+
+    def send_rejection_email
+      UserMailer.with(email: @invitation.email).rejection_email.deliver_later
     end
 
     def invitation_params

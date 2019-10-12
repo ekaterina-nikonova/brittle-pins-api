@@ -32,9 +32,23 @@ Rails.application.configure do
     config.active_storage.service = :amazon_development
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # ...erm... we actually do
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
+
+  # Config ActionMailer
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: Rails.application.credentials.action_mailer_smtp[:address],
+    port: 587,
+    domain: Rails.application.credentials.action_mailer_smtp[:domain],
+    user_name: Rails.application.credentials.action_mailer_smtp[:user_name],
+    password: Rails.application.credentials.action_mailer_smtp[:password],
+    authentication: 'login',
+    enable_starttls_auto: true
+  }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

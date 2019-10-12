@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  def invitation_email
-    mail to: 'admin@brittle-pins.com', subject: 'Test from Rails console'
+  def rejection_email
+    @email = params[:email]
+    mail(to: @email, subject: 'Invitation rejected')
   end
 end
