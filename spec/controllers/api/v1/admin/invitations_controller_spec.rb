@@ -76,6 +76,21 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
     end
   end
 
+  describe 'DELETE #destroy_with_rejection' do
+    before :each do
+      post :create, params: data
+    end
+
+    it 'should send email' do
+      ActiveJob::Base.queue_adapter = :test
+
+      sign_in_as(admin)
+      expect do
+        delete :destroy_with_rejection, params: { id: Invitation.last.id }
+      end.to have_enqueued_job.on_queue('mailers')
+    end
+  end
+
   describe 'GET #index' do
     before :each do
       post :create, params: data
