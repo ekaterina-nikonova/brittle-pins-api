@@ -5,7 +5,7 @@
 module Api::V1
   class SignupController < ApplicationController
     def create
-      if check_invitation(params[:code])
+      if check_invitation(params[:invitation_code])
         create_user
       else
         render json: { error: 'No invitation found' },
@@ -21,7 +21,7 @@ module Api::V1
     end
 
     def user_params
-      params.require(:code)
+      params.require(:invitation_code)
       params.permit(:email, :username, :password, :password_confirmation)
     end
 
