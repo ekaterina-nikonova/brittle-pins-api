@@ -4,8 +4,8 @@
 module Api::V1::Admin
   # Manage invitations for sign-ups
   class InvitationsController < ApplicationController
-    before_action :authorize_access_request!, only: [:index, :destroy]
-    before_action :set_invitation, only: [:destroy]
+    before_action :authorize_access_request!, only: %i[index destroy]
+    before_action :set_invitation, only: %i[destroy destroy_with_rejection]
     ROLES = %w[admin manager].freeze
 
     def index
@@ -28,13 +28,16 @@ module Api::V1::Admin
     end
 
     def destroy
-      send_rejection_email
-
       if @invitation.destroy
         head :no_content
       else
         render json: @invitation.errors, status: :unprocessable_entity
       end
+    end
+
+    def destroy_with_rejection
+      send_rejection_email
+      destroy
     end
 
     def token_claims
