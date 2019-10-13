@@ -3,7 +3,7 @@
 # Invitation requested before sign-up
 class Invitation < ApplicationRecord
   before_create :generate_code
-  before_validation :set_expiration_date
+  before_create :set_expiration_date
 
   validates :email,
             presence: true,
@@ -11,6 +11,7 @@ class Invitation < ApplicationRecord
 
   def accept
     self.accepted_at = DateTime.now
+    self.expires_at = 1.week.from_now
     save
   end
 
@@ -26,6 +27,6 @@ class Invitation < ApplicationRecord
   end
 
   def set_expiration_date
-    self.expires_at = 1.week.from_now
+    self.expires_at = 1.year.from_now
   end
 end

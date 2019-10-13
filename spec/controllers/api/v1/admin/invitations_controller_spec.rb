@@ -110,6 +110,12 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         patch :accept, params: { id: Invitation.last.id }
       end.to have_enqueued_job.on_queue('mailers')
     end
+
+    it 'should change expiry date to a week' do
+      sign_in_as(admin)
+      patch :accept, params: { id: Invitation.last.id }
+      expect(Invitation.last.expires_at.end_of_day).to eq(1.week.from_now.end_of_day)
+    end
   end
 
   describe 'GET #index' do
