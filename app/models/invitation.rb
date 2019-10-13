@@ -2,7 +2,7 @@
 
 # Invitation requested before sign-up
 class Invitation < ApplicationRecord
-  before_validation :generate_code
+  before_create :generate_code
   before_validation :set_expiration_date
 
   validates :email,

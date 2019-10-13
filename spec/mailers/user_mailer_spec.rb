@@ -11,7 +11,7 @@ RSpec.describe UserMailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to eq('Invitation rejected')
       expect(mail.to).to eq [user_email]
-      expect(mail.from).to eq ['no-reply@brittle-pins.com']
+      expect(ApplicationMailer.default[:from]).to match(mail.from.to_s)
     end
 
     it 'renders the body' do
@@ -25,7 +25,7 @@ RSpec.describe UserMailer, type: :mailer do
     it 'renders the headers' do
       expect(mail.subject).to match(/invitation/i)
       expect(mail.to).to eq [user_email]
-      expect(mail.from).to eq ['no-reply@brittle-pins.com']
+      expect(ApplicationMailer.default[:from]).to match(mail.from.to_s)
     end
 
     it 'renders the body' do
