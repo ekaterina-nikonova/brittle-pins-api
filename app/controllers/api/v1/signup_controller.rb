@@ -27,8 +27,10 @@ module Api::V1
 
     def create_user
       user = User.new(user_params)
-      accept_invitation(user.email)
+
       if user.save
+        use_invitation(user.email)
+
         payload = { user_id: user.id, aud: [user.role] }
         session = JWTSessions::Session.new(payload: payload,
                                            refresh_by_access_allowed: true)
@@ -45,9 +47,9 @@ module Api::V1
       end
     end
 
-    def accept_invitation(email)
+    def use_invitation(email)
       invitation = Invitation.find_by(email: email)
-      invitation.accept
+      invitation.use
     end
   end
 end

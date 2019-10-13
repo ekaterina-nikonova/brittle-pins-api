@@ -14,6 +14,11 @@ class Invitation < ApplicationRecord
     save
   end
 
+  def use
+    self.used_at = DateTime.now
+    save
+  end
+
   private
 
   def generate_code

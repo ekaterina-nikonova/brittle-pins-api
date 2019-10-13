@@ -10,7 +10,9 @@ module Api::V1::Admin
 
     def index
       @invitations = Invitation.all.order(:created_at)
-      render json: @invitations.as_json(only: %i[id code email])
+      render json: @invitations.as_json(
+        only: %i[id code email accepted_at used_at]
+      )
     end
 
     def create
