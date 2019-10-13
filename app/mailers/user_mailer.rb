@@ -8,6 +8,8 @@ class UserMailer < ApplicationMailer
   end
 
   def acceptance_email
-    #
+    @email = params[:email]
+    @invitation_code = Invitation.where(email: @email).first&.code
+    mail(to: @email, subject: 'Invitation code for sign up')
   end
 end

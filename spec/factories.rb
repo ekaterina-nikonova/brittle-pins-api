@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :invitation do
-    email { 'john@doe.com' }
+    email { 'test@example.com' }
   end
 
   factory :user do
-    email { "john@doe.com" }
-    username { "john-doe" }
-    password { "johndoe123" }
-    password_confirmation { "johndoe123" }
+    email { "test@example.com" }
+    username { "test" }
+    password { "test123" }
+    password_confirmation { "test123" }
   end
 
   factory :component do
