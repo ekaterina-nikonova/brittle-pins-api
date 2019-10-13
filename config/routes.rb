@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       resources :components
 
       namespace :admin do
+        resources :invitations, only: %i[index create destroy]
+        delete 'invitation-reject/:id', to: 'invitations#destroy_with_rejection'
+        patch 'invitation-accept/:id', to: 'invitations#accept'
+
         resources :users, only: %i[index destroy]
 
         namespace :users do
