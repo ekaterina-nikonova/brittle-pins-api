@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :invitation do
     email { 'test@example.com' }
+    expires_at { 1.week.from_now }
   end
 
   factory :user do

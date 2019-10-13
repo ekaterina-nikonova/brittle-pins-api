@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe UserMailer, type: :mailer do
   let(:user_email) { 'test@example.com' }
+  let!(:invitation) { create(:invitation) }
 
   describe 'rejection email' do
     let(:mail) { UserMailer.with(email: user_email).rejection_email }
@@ -30,6 +31,8 @@ RSpec.describe UserMailer, type: :mailer do
 
     it 'renders the body' do
       expect(mail.body.encoded).to match(/sign up|code/i)
+      expect(mail.body.encoded)
+        .to match(1.year.from_now.to_date.to_formatted_s(:long_ordinal))
     end
   end
 end
