@@ -91,6 +91,27 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
     end
   end
 
+  describe 'PATCH #accept' do
+    before :each do
+      post :create, params: data
+    end
+
+    it 'should change accepted_at attribute' do
+      sign_in_as(admin)
+      patch :accept, params: { id: Invitation.last.id }
+      expect(Invitation.last.accepted_at).not_to be(nil)
+    end
+
+    it 'should send email' do
+      ActiveJob::Base.queue_adapter = :test
+      sign_in_as(admin)
+
+      expect do
+        patch :accept, params: { id: Invitation.last.id }
+      end.to have_enqueued_job.on_queue('mailers')
+    end
+  end
+
   describe 'GET #index' do
     before :each do
       post :create, params: data
@@ -105,10 +126,12 @@ RSpec.describe Api::V1::Admin::InvitationsController, type: :controller do
         expect(response_json.length).to eq(2)
       end
 
-      it 'should only show id, code, and email (in this order)' do
+      it 'should only include selected attributes' do
+        attributes = %w[id code email created_at accepted_at used_at]
         sign_in_as(admin)
+
         get :index
-        expect(response_json.first.keys).to eq %w[id code email]
+        expect((response_json.first.keys.difference attributes).any?).to be(false)
       end
     end
 

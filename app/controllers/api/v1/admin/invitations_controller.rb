@@ -5,7 +5,7 @@ module Api::V1::Admin
   # Manage invitations for sign-ups
   class InvitationsController < ApplicationController
     before_action :authorize_access_request!, only: %i[index destroy]
-    before_action :set_invitation, only: %i[destroy destroy_with_rejection]
+    before_action :set_invitation, only: %i[accept destroy destroy_with_rejection]
     ROLES = %w[admin manager].freeze
 
     def index
@@ -42,6 +42,11 @@ module Api::V1::Admin
       destroy
     end
 
+    def accept
+      send_acceptance_email
+      @invitation.accept
+    end
+
     def token_claims
       { aud: ROLES, verify_aud: true }
     end
@@ -54,6 +59,10 @@ module Api::V1::Admin
 
     def set_invitation
       @invitation = Invitation.find(params[:id])
+    end
+
+    def send_acceptance_email
+      UserMailer.with(email: @invitation.email).acceptance_email.deliver_later
     end
 
     def send_rejection_email
