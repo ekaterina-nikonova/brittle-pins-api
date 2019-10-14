@@ -11,6 +11,8 @@ class User < ApplicationRecord
             length: { maximum: 255 },
             uniqueness: { case_sensitive: false }
 
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
+
   has_many :boards
   has_many :components
 
