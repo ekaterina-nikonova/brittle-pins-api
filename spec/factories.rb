@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :invitation do
-    email { 'test@example.com' }
+    sequence(:email) { |n| "user#{n}@example.com" }
     expires_at { 1.week.from_now }
   end
 
   factory :user do
-    email { "test@example.com" }
-    username { "test" }
-    password { "test123" }
-    password_confirmation { "test123" }
+    sequence(:username) { |n| "user#{n}" }
+    sequence(:email) { |n| "user#{n}@example.com" }
+    password { 'test1234' }
+    password_confirmation { 'test1234' }
   end
 
   factory :component do

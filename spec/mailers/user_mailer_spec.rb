@@ -24,12 +24,18 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { UserMailer.with(email: user_email).acceptance_email }
 
     it 'renders the headers' do
+      invitation.email = user_email
+      invitation.save!
+
       expect(mail.subject).to match(/invitation/i)
       expect(mail.to).to eq [user_email]
       expect(ApplicationMailer.default[:from]).to match(mail.from.to_s)
     end
 
     it 'renders the body' do
+      invitation.email = user_email
+      invitation.save!
+
       expect(mail.body.encoded).to match(/sign up|code/i)
       expect(mail.body.encoded)
         .to match(1.year.from_now.to_date.to_formatted_s(:long_ordinal))
