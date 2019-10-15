@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'has a unique username' do
-      u = User.create(username: 'test',
+      u = User.create(username: user.username,
                       email: 'test@test.test',
                       password: 'test12345',
                       password_confirmation: 'test12345')
@@ -18,7 +18,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'has a unique, case-insensitive username' do
-      u = User.create(username: 'TesT',
+      u = User.create(username: user.username.capitalize,
                       email: 'test@test.test',
                       password: 'test12345',
                       password_confirmation: 'test12345')
@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
 
     it 'has a unique email' do
       u = User.create(username: 'unique',
-                      email: 'test@example.com',
+                      email: user.email,
                       password: 'test12345',
                       password_confirmation: 'test12345')
       expect(u.valid?).to be(false)
@@ -37,7 +37,7 @@ RSpec.describe User, type: :model do
 
     it 'has a unique, case-insensitive email' do
       u = User.create(username: 'unique',
-                      email: 'Test@example.com',
+                      email: user.email.capitalize,
                       password: 'test12345',
                       password_confirmation: 'test12345')
       expect(u.valid?).to be(false)

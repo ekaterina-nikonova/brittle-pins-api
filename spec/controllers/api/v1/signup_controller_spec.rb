@@ -14,35 +14,54 @@ RSpec.describe Api::V1::SignupController, type: :controller do
     end
     let!(:invitation) { create :invitation }
 
+    after :each do
+      Invitation.destroy_all
+    end
+
     it 'should fail if no invitation code provided' do
       expect { post :create, params: user_params }
         .to raise_error ActionController::ParameterMissing
     end
 
     it 'should fail if invitation code does not match email' do
+      invitation.email = user.email
+      invitation.save!
+
       invitation.validate
       post :create, params: user_params.merge(invitation_code: 'random_code')
       expect(response).to have_http_status(403)
     end
 
     it 'should succeed if invitation code matches email' do
+      invitation.email = user.email
+      invitation.save!
+
       post :create, params: user_params.merge(invitation_code: invitation.code)
       expect(response).to have_http_status(200)
     end
 
     it 'should change invitation used_at datetime' do
+      invitation.email = user.email
+      invitation.save!
+
       post :create, params: user_params.merge(invitation_code: invitation.code)
       invitation.reload
       expect(invitation.used_at.nil?).to eq(false)
     end
 
     it 'should set used_at datetime in the future' do
+      invitation.email = user.email
+      invitation.save!
+
       post :create, params: user_params.merge(invitation_code: invitation.code)
       invitation.reload
       expect(invitation.used_at.after? invitation.created_at).to be(true)
     end
 
     it 'returns http success' do
+      invitation.email = user.email
+      invitation.save!
+
       post :create, params: user_params.merge(invitation_code: invitation.code)
       expect(response).to be_successful
       expect(response_json.keys).to eq ['csrf']
@@ -50,6 +69,9 @@ RSpec.describe Api::V1::SignupController, type: :controller do
     end
 
     it 'creates a new user' do
+      invitation.email = user.email
+      invitation.save!
+
       expect do
         post :create, params: user_params.merge(invitation_code: invitation.code)
       end.to change(User, :count).by(1)
