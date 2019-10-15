@@ -7,7 +7,7 @@ module Api::V1
     before_action :authorize_access_request!, only: [:destroy]
 
     def create
-      user = User.find_by(email: params[:email]) || User.find_by(username: params[:username])
+      user = User.find_by(email: params[:email])
 
       if user && user.authenticate(params[:password])
         payload = { user_id: user.id, aud: [user.role] }

@@ -6,32 +6,16 @@ RSpec.describe Api::V1::SigninController, type: :controller do
   describe 'POST create' do
     let(:user) { create :user }
 
-    let(:user_params_email) do
-      { email: user.email,
-        password: user.password }
-    end
+    let(:user_params) { { email: user.email,
+                          password: user.password } }
 
-    let(:user_params_username) do
-      { username: user.username,
-        password: user.password }
-    end
+    let(:incorrect_password) { { email: user.email,
+                                 password: 'incorrect' } }
 
-    let(:incorrect_password) do
-      { email: user.email,
-        password: 'incorrect' }
-    end
+    let(:incorrect_email) {{ email: 'em@a.il', password: 'abc' }}
 
-    let(:incorrect_email) { { email: 'em@a.il', password: 'abc' } }
-
-    it 'returns http success on log in with email' do
-      post :create, params: user_params_email
-      expect(response).to be_successful
-      expect(response_json.keys).to eq ['csrf']
-      expect(response.cookies[JWTSessions.access_cookie]).to be_present
-    end
-
-    it 'returns http success on log in with username' do
-      post :create, params: user_params_username
+    it 'returns http success' do
+      post :create, params: user_params
       expect(response).to be_successful
       expect(response_json.keys).to eq ['csrf']
       expect(response.cookies[JWTSessions.access_cookie]).to be_present
