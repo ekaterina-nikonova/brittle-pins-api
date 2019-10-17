@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :project do
+    
+  end
+
   factory :invitation do
     sequence(:email) { |n| "user#{n}@example.com" }
     expires_at { 1.week.from_now }
