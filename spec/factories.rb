@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :project do
-    
+    name { 'test project name' }
+    description { 'test project description' }
   end
 
   factory :invitation do
