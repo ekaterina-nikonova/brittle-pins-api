@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       post 'refresh', to: 'refresh#create'
       delete 'signin', to: 'signin#destroy'
 
+      resources :projects
+
       resources :boards do
         get 'components' => :components
       end
