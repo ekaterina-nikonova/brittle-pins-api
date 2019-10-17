@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::ProjectsController, type: :controller do
   let(:user) { create :user }
-  let(:project) { build :project }
+  let(:board) { create :board, user: user }
+  let(:project) { build :project, user: user }
 
   before do
     payload = { user_id: user.id }
@@ -13,7 +14,7 @@ RSpec.describe Api::V1::ProjectsController, type: :controller do
   end
 
   describe 'GET index' do
-    let!(:projects) { create_list(:project, 20, user: user) }
+    let!(:projects) { create_list(:project, 20, user: user, board: board) }
 
     it 'is unauth without a cookie' do
       get :index

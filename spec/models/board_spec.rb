@@ -12,6 +12,11 @@ RSpec.describe Board, type: :model do
       expect(board.valid?).to be(true)
     end
 
+    it 'can have projects' do
+      board = create(:board_with_projects, user: user)
+      expect(board.projects.length).to eq(13)
+    end
+
     it 'can have components' do
       board = create(:board_with_components, user: user)
       expect(board.components.length).to eq(15)

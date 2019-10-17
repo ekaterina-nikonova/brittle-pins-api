@@ -35,6 +35,16 @@ FactoryBot.define do
       end
     end
 
+    factory :board_with_projects do
+      transient do
+        projects_count { 13 }
+      end
+
+      after(:create) do |board, evaluator|
+        create_list(:project, evaluator.projects_count, board: board, user: board.user )
+      end
+    end
+
     trait :with_image do
       image { fixture_file_upload(
         Rails.root.join('spec', 'support', 'assets', 'test.png')
