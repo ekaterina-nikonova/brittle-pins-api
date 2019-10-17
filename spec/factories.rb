@@ -2,6 +2,16 @@ FactoryBot.define do
   factory :project do
     name { 'test project name' }
     description { 'test project description' }
+
+    factory :project_with_components do
+      transient do
+        components_count { 18 }
+      end
+
+      after(:create) do |project, evaluator|
+        create_list(:component, evaluator.components_count, projects: [project], user: project.user )
+      end
+    end
   end
 
   factory :invitation do
@@ -19,6 +29,16 @@ FactoryBot.define do
   factory :component do
     name { 'test component name' }
     description { 'test component description' }
+
+    factory :component_with_projects do
+      transient do
+        projects_count { 19 }
+      end
+
+      after(:create) do |component, evaluator|
+        create_list(:project, evaluator.projects_count, components: [component], board: component.boards.first, user: component.user)
+      end
+    end
   end
 
   factory :board do

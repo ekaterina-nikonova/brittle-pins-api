@@ -21,5 +21,10 @@ RSpec.describe Project, type: :model do
       expect(project.valid?).to be(true)
       expect(project.board).not_to be(nil)
     end
+
+    it 'can have components' do
+      project = create(:project_with_components, user: user, board: board)
+      expect(project.components.length).to eq(18)
+    end
   end
 end
