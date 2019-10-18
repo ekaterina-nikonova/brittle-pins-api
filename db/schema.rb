@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_202821) do
+ActiveRecord::Schema.define(version: 2019_10_18_184103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 2019_10_17_202821) do
     t.uuid "component_id", null: false
   end
 
+  create_table "chapters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "intro"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "project_id"
+    t.index ["project_id"], name: "index_chapters_on_project_id"
+  end
+
   create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -85,6 +94,15 @@ ActiveRecord::Schema.define(version: 2019_10_17_202821) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "paragraph", null: false
+    t.text "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "chapter_id"
+    t.index ["chapter_id"], name: "index_sections_on_chapter_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "username", null: false
@@ -96,7 +114,9 @@ ActiveRecord::Schema.define(version: 2019_10_17_202821) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "users"
+  add_foreign_key "chapters", "projects"
   add_foreign_key "components", "users"
   add_foreign_key "projects", "boards"
   add_foreign_key "projects", "users"
+  add_foreign_key "sections", "chapters"
 end

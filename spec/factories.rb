@@ -14,6 +14,22 @@ FactoryBot.define do
     end
   end
 
+  factory :chapter do
+    name { 'test chapter' }
+    intro { 'test chapter intro' }
+  end
+
+  factory :section do
+    paragraph { 'test section paragraph' }
+    code { 'test section code' }
+
+    trait :with_image do
+      image { fixture_file_upload(
+          Rails.root.join('spec', 'support', 'assets', 'test.png')
+      )}
+    end
+  end
+
   factory :invitation do
     sequence(:email) { |n| "user#{n}@example.com" }
     expires_at { 1.week.from_now }
