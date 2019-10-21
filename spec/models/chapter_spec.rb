@@ -25,5 +25,17 @@ RSpec.describe Chapter, type: :model do
       chapter.intro = nil
       expect(chapter).to be_valid
     end
+
+    it 'can have many sections' do
+      chapter = create(:chapter_with_sections, project: project)
+      expect(chapter.sections.count).to eq(17)
+    end
+
+    it 'should belong to a project' do
+      expect(chapter.project).not_to be_nil
+
+      chapter.project = nil
+      expect(chapter).not_to be_valid
+    end
   end
 end

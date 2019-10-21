@@ -12,11 +12,31 @@ FactoryBot.define do
         create_list(:component, evaluator.components_count, projects: [project], user: project.user )
       end
     end
+
+    factory :project_with_chapters do
+      transient do
+        chapters_count { 11 }
+      end
+
+      after(:create) do |project, evaluator|
+        create_list(:chapter, evaluator.chapters_count, project: project)
+      end
+    end
   end
 
   factory :chapter do
     name { 'test chapter' }
     intro { 'test chapter intro' }
+
+    factory :chapter_with_sections do
+      transient do
+        sections_count { 17 }
+      end
+
+      after(:create) do |chapter, evaluator|
+        create_list(:section, evaluator.sections_count, chapter: chapter)
+      end
+    end
   end
 
   factory :section do

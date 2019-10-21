@@ -26,5 +26,10 @@ RSpec.describe Project, type: :model do
       project = create(:project_with_components, user: user, board: board)
       expect(project.components.length).to eq(18)
     end
+
+    it 'can have many chapters' do
+      project = create(:project_with_chapters, user: user, board: board)
+      expect(project.chapters.count).to eq(11)
+    end
   end
 end
