@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  post "graphql", to: "graphql#execute"
   namespace :api do
     namespace :v1 do
+      post "graphql", to: "graphql#execute"
+
       get 'me', to: 'users#me'
       post 'signup', to: 'signup#create'
       post 'signin', to: 'signin#create'

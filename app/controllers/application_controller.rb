@@ -5,10 +5,6 @@ class ApplicationController < ActionController::API
   rescue_from JWTSessions::Errors::Unauthorized, with: :not_authorized
   rescue_from JWTSessions::Errors::ClaimsVerification, with: :forbidden
 
-  # Required by protect_from_forgery in GraphqlController;
-  # removed from 'rails-api'
-  include ActionController::RequestForgeryProtection
-
   private
 
   def current_user

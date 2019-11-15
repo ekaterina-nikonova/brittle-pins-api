@@ -5,7 +5,7 @@ module Types
 
     field :projects, [ProjectType], null: true
     def projects
-      Project.all
+      context[:current_user].projects
     end
   end
 end
