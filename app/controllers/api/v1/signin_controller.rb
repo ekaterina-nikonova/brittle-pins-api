@@ -8,7 +8,7 @@ module Api::V1
 
     def create
       user = User.find_by(email: params[:email]) ||
-          User.find_by(username: params[:username])
+          User.find_by(username: params[:email])
 
       if user && user.authenticate(params[:password])
         payload = { user_id: user.id, aud: [user.role] }
