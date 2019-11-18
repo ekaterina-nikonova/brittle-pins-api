@@ -12,7 +12,7 @@ module Mutations
     field :project, Types::ProjectType, null: true
     field :errors, [String], null: false
 
-    def resolve(name: '', board_id:, description:, components:)
+    def resolve(name: '', board_id: '', description: '', components: [])
       user = context[:current_user]
       return { project: nil, errors: ['Not authorized'] } unless user
 
