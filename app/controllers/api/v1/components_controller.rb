@@ -4,7 +4,7 @@ module Api::V1
     before_action :set_component, only: [:show, :update, :destroy]
   
     def index
-      @components = current_user.components.order(:created_at)
+      @components = current_user.components.order(:created_at).reverse_order
       render json: @components
     end
   

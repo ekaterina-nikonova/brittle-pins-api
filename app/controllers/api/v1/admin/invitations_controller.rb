@@ -9,7 +9,7 @@ module Api::V1::Admin
     ROLES = %w[admin manager].freeze
 
     def index
-      @invitations = Invitation.all.order(:created_at)
+      @invitations = Invitation.all.order(:created_at).reverse_order
       render json: @invitations.as_json(
         only: %i[id code email created_at accepted_at used_at]
       )
