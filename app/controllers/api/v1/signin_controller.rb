@@ -15,6 +15,13 @@ module Api::V1
         session = JWTSessions::Session.new(payload: payload,
                                            refresh_by_access_allowed: true)
         tokens = session.login
+        response.set_cookie(:user_id,
+                            path: '/',
+                            value: user.id,
+                            httponly: true,
+                            expires: 1.month.from_now,
+                            secure: Rails.env.production?)
+
         response.set_cookie(JWTSessions.access_cookie,
                             value: tokens[:access],
                             httponly: true,
