@@ -16,17 +16,10 @@ module Mutations
       project = user.projects.find(id)
 
       if project.destroy
-        notify_subscriber_of_deletion(project)
         { project: project }
       else
         { project: nil, errors: project.errors.full_messages }
       end
-    end
-
-    private
-
-    def notify_subscriber_of_deletion(project)
-      BrittlePinsApiSchema.subscriptions.trigger('projectDeleted', {}, project)
     end
   end
 end

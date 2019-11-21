@@ -1,5 +1,6 @@
 class Project < ApplicationRecord
-  after_commit :notify_subscriber_of_addition
+  after_commit :notify_subscriber_of_addition, on: :create
+  after_commit :notify_subscriber_of_deletion, on: :destroy
 
   belongs_to :user
   belongs_to :board
@@ -10,5 +11,9 @@ class Project < ApplicationRecord
 
   def notify_subscriber_of_addition
     BrittlePinsApiSchema.subscriptions.trigger('projectAdded', {}, self)
+  end
+
+  def notify_subscriber_of_deletion
+    BrittlePinsApiSchema.subscriptions.trigger('projectDeleted', {}, id)
   end
 end
