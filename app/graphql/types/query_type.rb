@@ -1,7 +1,16 @@
 module Types
   class QueryType < Types::BaseObject
-    # Add root-level fields here.
-    # They will be entry points for queries on your schema.
+    field :projects, [ProjectType], null: true
+    def projects
+      context[:current_user].projects.order(:created_at).reverse_order
+    end
+
+    field :project, ProjectType, null: true do
+      argument :id, ID, required: true
+    end
+    def project(id:)
+      context[:current_user].projects.find(id)
+    end
 
     field :boards, [BoardType], null: true
     def boards
@@ -23,11 +32,6 @@ module Types
         .components
         .order(:created_at)
         .reverse_order
-    end
-
-    field :projects, [ProjectType], null: true
-    def projects
-      context[:current_user].projects.order(:created_at).reverse_order
     end
   end
 end
