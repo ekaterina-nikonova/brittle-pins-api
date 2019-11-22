@@ -83,6 +83,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    acts_as_list (1.0.0)
+      activerecord (>= 4.2)
     aws-eventstream (1.0.3)
     aws-partitions (1.222.0)
     aws-sdk-core (3.68.1)
@@ -213,6 +215,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
   aws-sdk-s3
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
