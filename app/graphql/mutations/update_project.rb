@@ -15,7 +15,17 @@ module Mutations
       return { project: nil, errors: ['Not authorized'] } unless user
 
       project = user.projects.find(id)
-      if project.update(attributes.to_h)
+
+      attrs = attributes.to_h
+      attrs[:board] = user.boards.find(attributes[:board]) if attributes[:board]
+
+      if attributes[:components]
+        attrs[:components] = attributes[:components].map do |c|
+          user.components.find(c)
+        end
+      end
+
+      if project.update(attrs)
         { project: project, errors: [] }
       else
         { project: nil, errors: project.errors.full_messages }
