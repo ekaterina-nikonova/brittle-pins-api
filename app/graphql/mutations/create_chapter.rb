@@ -7,19 +7,21 @@ module Mutations
     argument :intro, String, required: false
 
     field :chapter, Types::ChapterType, null: true
-    field :errors, [String], null:false
+    field :project, Types::ProjectType, null: false
+    field :errors, [String], null: false
 
     def resolve(project_id:, name:, intro: '')
       user = context[:current_user]
       return { chapter: nil, errors: ['Not authorized'] } unless user
 
-      chapter = user.projects.find(project_id)
-                    .chapters.build(name: name, intro: intro)
+      project = user.projects.find(project_id)
+
+      chapter = project.chapters.build(name: name, intro: intro)
 
       if chapter.save
-        { chapter: chapter, errors: [] }
+        { chapter: chapter, project: project, errors: [] }
       else
-        { chapter: nil, errors: chapter.errors.full_messages }
+        { chapter: nil, project: project, errors: chapter.errors.full_messages }
       end
     end
   end
