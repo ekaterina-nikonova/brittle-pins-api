@@ -7,7 +7,7 @@ module Mutations
     argument :intro, String, required: false
 
     field :chapter, Types::ChapterType, null: true
-    field :project, Types::ProjectType, null: false
+    field :project, Types::ProjectType, null: true
     field :errors, [String], null: false
 
     def resolve(project_id:, name:, intro: '')
@@ -19,9 +19,9 @@ module Mutations
       chapter = project.chapters.build(name: name, intro: intro)
 
       if chapter.save
-        { chapter: chapter, project: project, errors: [] }
+        { chapter: chapter, errors: [] }
       else
-        { chapter: nil, project: project, errors: chapter.errors.full_messages }
+        { chapter: nil, errors: chapter.errors.full_messages }
       end
     end
   end

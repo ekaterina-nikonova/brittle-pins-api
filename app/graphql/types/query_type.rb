@@ -33,5 +33,15 @@ module Types
         .order(:created_at)
         .reverse_order
     end
+
+    field :chapters, [ChapterType], null: true do
+      argument :projectId, ID, required: true
+    end
+    def chapters(project_id: '')
+      user = context[:current_user]
+      return { chapters: nil, errors: ['Not authorized'] } unless user
+
+      user.projects.find(project_id).chapters.order(:position)
+    end
   end
 end

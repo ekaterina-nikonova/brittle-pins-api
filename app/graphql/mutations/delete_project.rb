@@ -16,7 +16,7 @@ module Mutations
       project = user.projects.find(id)
 
       if project.destroy
-        { project: project }
+        { project: project, errors: [] }
       else
         { project: nil, errors: project.errors.full_messages }
       end
