@@ -5,5 +5,6 @@ module Types
     field :update_project, mutation: Mutations::UpdateProject
 
     field :create_chapter, mutation: Mutations::CreateChapter
+    field :create_section, mutation: Mutations::CreateSection
   end
 end
