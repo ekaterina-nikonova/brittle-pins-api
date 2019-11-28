@@ -8,5 +8,6 @@ module Types
     field :delete_chapter, mutation: Mutations::DeleteChapter
 
     field :create_section, mutation: Mutations::CreateSection
+    field :delete_section, mutation: Mutations::DeleteSection
   end
 end
