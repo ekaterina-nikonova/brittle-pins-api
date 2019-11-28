@@ -6,6 +6,7 @@ module Types
 
     field :create_chapter, mutation: Mutations::CreateChapter
     field :delete_chapter, mutation: Mutations::DeleteChapter
+    field :update_chapter, mutation: Mutations::UpdateChapter
 
     field :create_section, mutation: Mutations::CreateSection
     field :delete_section, mutation: Mutations::DeleteSection
