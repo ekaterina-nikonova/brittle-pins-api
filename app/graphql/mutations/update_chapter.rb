@@ -11,7 +11,7 @@ module Mutations
 
     def resolve(project_id: '', chapter_id: '', attributes:)
       user = context[:current_user]
-      return { project: nil, errors: ['Not authorized'] } unless user
+      return { chapter: nil, errors: ['Not authorized'] } unless user
 
       project = user.projects.find(project_id)
       chapter = project.chapters.find(chapter_id)

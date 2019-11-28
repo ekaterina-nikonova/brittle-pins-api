@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Types
   class MutationType < Types::BaseObject
     field :create_project, mutation: Mutations::CreateProject
@@ -10,5 +12,6 @@ module Types
 
     field :create_section, mutation: Mutations::CreateSection
     field :delete_section, mutation: Mutations::DeleteSection
+    field :update_section, mutation: Mutations::UpdateSection
   end
 end
