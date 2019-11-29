@@ -3,6 +3,7 @@ module Types
     field :id, ID, null: false
     field :paragraph, String, null: false
     field :code, String, null: true
+    field :language, String, null: true
     field :image_url, String, null: true
 
     def image_url

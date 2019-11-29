@@ -6,17 +6,25 @@ module Mutations
     argument :chapterId, ID, required: true
     argument :paragraph, String, required: true
     argument :code, String, required: false
+    argument :language, String, required: false
 
     field :section, Types::SectionType, null: true
     field :errors, [String], null: false
 
-    def resolve(project_id: '', chapter_id: '', paragraph: '', code: '')
+    def resolve(project_id: '',
+                chapter_id: '',
+                paragraph: '',
+                code: '',
+                language: '')
+
       user = context[:current_user]
       return { section: nil, errors: ['Not authorized'] } unless user
 
       project = user.projects.find(project_id)
       chapter = project.chapters.find(chapter_id)
-      section = chapter.sections.build(paragraph: paragraph, code: code)
+      section = chapter.sections.build(paragraph: paragraph,
+                                       code: code,
+                                       language: language)
 
       if section.save
         { section: section, errors: [] }
