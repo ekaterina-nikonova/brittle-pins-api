@@ -22,6 +22,10 @@ RSpec.describe Section, type: :model do
       expect(section.code).to eq('test section code')
     end
 
+    it 'should have language' do
+      expect(section.language).to eq('sectionlang')
+    end
+
     it 'should be invalid without a paragraph' do
       section.paragraph = nil
       expect(section).not_to be_valid
@@ -35,7 +39,7 @@ RSpec.describe Section, type: :model do
     end
 
     it 'can have an image attached' do
-      expect(section_with_image.image).to  be_attached
+      expect(section_with_image.image).to be_attached
     end
   end
 end

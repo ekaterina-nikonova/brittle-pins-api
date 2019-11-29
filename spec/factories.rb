@@ -42,6 +42,7 @@ FactoryBot.define do
   factory :section do
     paragraph { 'test section paragraph' }
     code { 'test section code' }
+    language { 'sectionlang' }
 
     trait :with_image do
       image { fixture_file_upload(
