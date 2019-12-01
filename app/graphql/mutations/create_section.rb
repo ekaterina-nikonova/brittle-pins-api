@@ -24,7 +24,8 @@ module Mutations
       chapter = project.chapters.find(chapter_id)
       section = chapter.sections.build(paragraph: paragraph,
                                        code: code,
-                                       language: language)
+                                       language: language,
+                                       user_id: user.id)
 
       if section.save
         { section: section, errors: [] }

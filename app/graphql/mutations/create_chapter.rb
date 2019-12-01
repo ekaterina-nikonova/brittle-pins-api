@@ -16,7 +16,9 @@ module Mutations
 
       project = user.projects.find(project_id)
 
-      chapter = project.chapters.build(name: name, intro: intro)
+      chapter = project.chapters.build(name: name,
+                                       intro: intro,
+                                       user_id: user.id)
 
       if chapter.save
         { chapter: chapter, errors: [] }
