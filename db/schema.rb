@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_173422) do
+ActiveRecord::Schema.define(version: 2019_12_01_020048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -57,7 +57,9 @@ ActiveRecord::Schema.define(version: 2019_11_29_173422) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "project_id"
     t.integer "position"
+    t.uuid "user_id"
     t.index ["project_id"], name: "index_chapters_on_project_id"
+    t.index ["user_id"], name: "index_chapters_on_user_id"
   end
 
   create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -103,7 +105,9 @@ ActiveRecord::Schema.define(version: 2019_11_29_173422) do
     t.uuid "chapter_id"
     t.integer "position"
     t.string "language"
+    t.uuid "user_id"
     t.index ["chapter_id"], name: "index_sections_on_chapter_id"
+    t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -118,8 +122,10 @@ ActiveRecord::Schema.define(version: 2019_11_29_173422) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "users"
   add_foreign_key "chapters", "projects"
+  add_foreign_key "chapters", "users"
   add_foreign_key "components", "users"
   add_foreign_key "projects", "boards"
   add_foreign_key "projects", "users"
   add_foreign_key "sections", "chapters"
+  add_foreign_key "sections", "users"
 end

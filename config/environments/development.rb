@@ -69,4 +69,6 @@ Rails.application.configure do
 
   # Allowed origins depending on environment
   config.allowed_cors_origins = ['http://localhost:3000']
+
+  Rails.application.routes.default_url_options[:host] = "http://localhost:3000"
 end
