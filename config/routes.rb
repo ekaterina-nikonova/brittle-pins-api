@@ -15,7 +15,8 @@ Rails.application.routes.draw do
         get 'components' => :components
       end
 
-      resources :uploads
+      post 'uploads', to: 'uploads#create'
+      delete 'uploads', to: 'uploads#destroy'
 
       resources :components
 
