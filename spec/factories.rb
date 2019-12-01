@@ -19,7 +19,7 @@ FactoryBot.define do
       end
 
       after(:create) do |project, evaluator|
-        create_list(:chapter, evaluator.chapters_count, project: project)
+        create_list(:chapter, evaluator.chapters_count, project: project, user: project.user)
       end
     end
   end
@@ -34,7 +34,7 @@ FactoryBot.define do
       end
 
       after(:create) do |chapter, evaluator|
-        create_list(:section, evaluator.sections_count, chapter: chapter)
+        create_list(:section, evaluator.sections_count, chapter: chapter, user: chapter.user)
       end
     end
   end

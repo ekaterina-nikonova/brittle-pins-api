@@ -5,8 +5,8 @@ RSpec.describe Section, type: :model do
   let!(:board) { create(:board, user: user) }
 
   let(:project) { build :project, board: board, user: user }
-  let(:chapter) { build :chapter, project: project }
-  let(:section) { build :section, chapter: chapter }
+  let(:chapter) { build :chapter, project: project, user: user }
+  let(:section) { build :section, chapter: chapter, user: user }
   let(:section_with_image) { build :section, :with_image }
 
   describe 'instance' do

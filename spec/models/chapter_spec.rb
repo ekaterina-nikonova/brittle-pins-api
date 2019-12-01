@@ -5,7 +5,7 @@ RSpec.describe Chapter, type: :model do
   let!(:board) { create(:board, user: user) }
 
   let(:project) { build :project, board: board, user: user }
-  let(:chapter) { build :chapter, project: project }
+  let(:chapter) { build :chapter, project: project, user: user }
 
   describe 'instance' do
     it 'should be valid' do
@@ -27,7 +27,7 @@ RSpec.describe Chapter, type: :model do
     end
 
     it 'can have many sections' do
-      chapter = create(:chapter_with_sections, project: project)
+      chapter = create(:chapter_with_sections, project: project, user: project.user)
       expect(chapter.sections.count).to eq(17)
     end
 
