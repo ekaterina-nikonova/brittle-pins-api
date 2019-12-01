@@ -3,7 +3,7 @@ require 'aws-sdk-s3'
 module Api::V1
   class UploadsController < ApplicationController
     before_action :authorize_access_request!
-    before_action :set_upload, only: [:create]
+    before_action :set_upload, only: [:create, :destroy]
 
     def create
       file = @upload.original_filename
@@ -22,6 +22,10 @@ module Api::V1
       ActionCable.server.broadcast set_channel(@parent),
                                    set_data(@parent)
       render json: response
+    end
+
+    def destroy
+      @parent.send(upload_params[:type]).purge
     end
 
     private

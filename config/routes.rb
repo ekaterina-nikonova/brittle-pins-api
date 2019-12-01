@@ -1,17 +1,22 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      post "graphql", to: "graphql#execute"
+
       get 'me', to: 'users#me'
       post 'signup', to: 'signup#create'
       post 'signin', to: 'signin#create'
       post 'refresh', to: 'refresh#create'
       delete 'signin', to: 'signin#destroy'
 
+      resources :projects
+
       resources :boards do
         get 'components' => :components
       end
 
-      resources :uploads
+      post 'uploads', to: 'uploads#create'
+      delete 'uploads', to: 'uploads#destroy'
 
       resources :components
 
@@ -28,7 +33,8 @@ Rails.application.routes.draw do
         end
       end
 
-      mount ActionCable.server => '/cable'
     end
   end
+
+  mount ActionCable.server => '/cable'
 end

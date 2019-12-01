@@ -4,7 +4,7 @@ module Api::V1
     before_action :set_board, only: [:show, :update, :destroy]
   
     def index
-      @boards = current_user.boards.order(:created_at)
+      @boards = current_user.boards.order(:created_at).reverse_order
 
       boards_with_images = @boards.map do |board|
         with_image(board)

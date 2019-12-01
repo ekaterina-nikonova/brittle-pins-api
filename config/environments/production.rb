@@ -85,4 +85,6 @@ Rails.application.configure do
 
   # Allowed origins depending on environment
   config.allowed_cors_origins = ['https://brittle-pins.com']
+
+  Rails.application.routes.default_url_options[:host] = "https://brittle-pins.com"
 end

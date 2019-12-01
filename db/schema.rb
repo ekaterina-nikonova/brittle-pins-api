@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_13_124940) do
+ActiveRecord::Schema.define(version: 2019_12_01_020048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 2019_10_13_124940) do
     t.uuid "component_id", null: false
   end
 
+  create_table "chapters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "intro"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "project_id"
+    t.integer "position"
+    t.uuid "user_id"
+    t.index ["project_id"], name: "index_chapters_on_project_id"
+    t.index ["user_id"], name: "index_chapters_on_user_id"
+  end
+
   create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -57,6 +69,11 @@ ActiveRecord::Schema.define(version: 2019_10_13_124940) do
     t.datetime "updated_at", null: false
     t.uuid "user_id"
     t.index ["user_id"], name: "index_components_on_user_id"
+  end
+
+  create_table "components_projects", id: false, force: :cascade do |t|
+    t.uuid "project_id", null: false
+    t.uuid "component_id", null: false
   end
 
   create_table "invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -67,6 +84,30 @@ ActiveRecord::Schema.define(version: 2019_10_13_124940) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "used_at"
+  end
+
+  create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "user_id"
+    t.uuid "board_id"
+    t.index ["board_id"], name: "index_projects_on_board_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "paragraph", null: false
+    t.text "code"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "chapter_id"
+    t.integer "position"
+    t.string "language"
+    t.uuid "user_id"
+    t.index ["chapter_id"], name: "index_sections_on_chapter_id"
+    t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -80,5 +121,11 @@ ActiveRecord::Schema.define(version: 2019_10_13_124940) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "users"
+  add_foreign_key "chapters", "projects"
+  add_foreign_key "chapters", "users"
   add_foreign_key "components", "users"
+  add_foreign_key "projects", "boards"
+  add_foreign_key "projects", "users"
+  add_foreign_key "sections", "chapters"
+  add_foreign_key "sections", "users"
 end

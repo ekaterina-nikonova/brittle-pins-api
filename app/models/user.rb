@@ -21,6 +21,9 @@ class User < ApplicationRecord
             length: { minimum: 8 },
             allow_blank: true
 
+  has_many :projects
+  has_many :chapters
+  has_many :sections
   has_many :boards
   has_many :components
 

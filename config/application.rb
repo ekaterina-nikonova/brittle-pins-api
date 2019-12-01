@@ -37,5 +37,10 @@ module BrittlePinsApi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # Required for ActionController::RequestForgeryProtection
+    # Removed from 'rails-api'
+    # https://stackoverflow.com/questions/19600905/undefined-method-flash-for-actiondispatchrequest
+    config.middleware.use ActionDispatch::Flash
+
   end
 end
