@@ -21,11 +21,11 @@ class User < ApplicationRecord
             length: { minimum: 8 },
             allow_blank: true
 
-  has_many :projects
+  has_many :projects, dependent: :destroy
   has_many :chapters
   has_many :sections
-  has_many :boards
-  has_many :components
+  has_many :boards, dependent: :destroy
+  has_many :components, dependent: :destroy
 
   has_secure_password
 
