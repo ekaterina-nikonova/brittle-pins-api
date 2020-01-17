@@ -1,0 +1,4 @@
+:schedule:
+  delete_guests:
+    every: 1h
+    class: DeleteGuestsJob
