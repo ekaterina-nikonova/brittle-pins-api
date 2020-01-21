@@ -1,3 +1,4 @@
 redis: redis-server
 api: bundle exec rails s -p 3001
+sidekiq: bundle exec sidekiq
 web: sh -c 'cd ../brittle-pins-web && PORT=3000 yarn start'

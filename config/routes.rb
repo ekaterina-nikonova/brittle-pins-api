@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
       get 'me', to: 'users#me'
       post 'signup', to: 'signup#create'
+      post 'signup-guest', to: 'signup#create_guest'
       post 'signin', to: 'signin#create'
       post 'refresh', to: 'refresh#create'
       delete 'signin', to: 'signin#destroy'

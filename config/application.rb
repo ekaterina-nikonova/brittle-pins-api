@@ -42,5 +42,8 @@ module BrittlePinsApi
     # https://stackoverflow.com/questions/19600905/undefined-method-flash-for-actiondispatchrequest
     config.middleware.use ActionDispatch::Flash
 
+    # Use Sidekiq with Active Job
+    # https://github.com/mperham/sidekiq/wiki/Active-Job
+    config.active_job.queue_adapter = :sidekiq
   end
 end
