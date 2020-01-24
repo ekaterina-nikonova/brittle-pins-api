@@ -13,5 +13,7 @@ module Types
     field :create_section, mutation: Mutations::CreateSection
     field :delete_section, mutation: Mutations::DeleteSection
     field :update_section, mutation: Mutations::UpdateSection
+
+    field :delete_board, mutation: Mutations::DeleteBoard
   end
 end
