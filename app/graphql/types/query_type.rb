@@ -17,6 +17,13 @@ module Types
       context[:current_user].boards.order(:created_at).reverse_order
     end
 
+    field :board, BoardType, null: true do
+      argument :id, ID, required: true
+    end
+    def board(id:)
+      context[:current_user].boards.find(id)
+    end
+
     field :components, [ComponentType], null: true
     def components
       context[:current_user].components.order(:created_at).reverse_order
