@@ -17,5 +17,14 @@ module Types
 
     field :boardUpdated, Types::BoardType, null: true
     def board_updated; end
+
+    field :componentAdded, Types::ComponentType, null: true
+    def component_added; end
+
+    field :componentDeleted, ID, null: true
+    def component_deleted; end
+
+    field :componentUpdated, Types::ComponentType, null: true
+    def component_updated; end
   end
 end
