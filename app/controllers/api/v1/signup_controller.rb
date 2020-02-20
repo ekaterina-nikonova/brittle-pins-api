@@ -39,7 +39,7 @@ module Api::V1
     end
 
     def create_user
-      user = User.new(user_params)
+      user = User.new(user_params.merge! role: :user)
 
       if user.save
         use_invitation user.email
