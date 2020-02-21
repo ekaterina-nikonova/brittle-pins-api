@@ -6,6 +6,7 @@ module Mutations
 
     argument :name, String, required: true
     argument :description, String, required: false
+    argument :board_id, ID, required: true
 
     field :component, Types::ComponentType, null: true
     field :errors, [String], null: false
@@ -16,7 +17,7 @@ module Mutations
 
       component = user.components.build(name: name,
                                         description: description,
-                                        board: user.boards.find(board_id))
+                                        boards: [user.boards.find(board_id)])
 
       if component.save
         { component: component, errors: [] }
