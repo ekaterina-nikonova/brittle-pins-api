@@ -19,5 +19,6 @@ module Types
     field :update_board, mutation: Mutations::UpdateBoard
 
     field :create_component, mutation: Mutations::CreateComponent
+    field :delete_component, mutation: Mutations::DeleteComponent
   end
 end
