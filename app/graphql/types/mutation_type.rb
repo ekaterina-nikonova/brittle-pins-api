@@ -20,5 +20,6 @@ module Types
 
     field :create_component, mutation: Mutations::CreateComponent
     field :delete_component, mutation: Mutations::DeleteComponent
+    field :update_component, mutation: Mutations::UpdateComponent
   end
 end
