@@ -53,6 +53,13 @@ module Types
         .reverse_order
     end
 
+    field :component, ComponentType, null: true do
+      argument :id, ID, required: true
+    end
+    def component(id:)
+      context[:current_user].components.find(id)
+    end
+
     field :chapters, [ChapterType], null: true do
       argument :projectId, ID, required: true
     end
