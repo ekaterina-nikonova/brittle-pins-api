@@ -18,6 +18,12 @@ module Mutations
 
       attrs = attributes.to_h
 
+      if attributes[:boards]
+        attrs[:boards] = attributes[:boards].map do |b|
+          user.boards.find(b)
+        end
+      end
+
       if component.update(attrs)
         { component: component, errors: [] }
       else
