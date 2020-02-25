@@ -5,6 +5,18 @@ module Types
       context[:current_user].projects.order(:created_at).reverse_order
     end
 
+    field :projectsForBoard, [ProjectType], null: true do
+      argument :boardId, ID, required: true
+    end
+    def projects_for_board(board_id:)
+      context[:current_user]
+        .boards
+        .find(board_id)
+        .projects
+        .order(:created_at)
+        .reverse_order
+    end
+
     field :project, ProjectType, null: true do
       argument :id, ID, required: true
     end
