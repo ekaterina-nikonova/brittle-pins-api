@@ -26,3 +26,6 @@ coverage
 
 .idea/
 logfile
+
+# Redis db dump file
+dump.rdb
