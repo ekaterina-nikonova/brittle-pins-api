@@ -3,5 +3,15 @@ module Types
     field :id, ID, null: false
     field :name, String, null: false
     field :description, String, null: true
+    field :image_url, String, null: true
+
+    field :projects, [ProjectType], null: true
+    field :boards, [BoardType], null: true
+
+    def image_url
+      return '' unless object.image.attached?
+
+      Rails.application.routes.url_helpers.rails_blob_url(object.image)
+    end
   end
 end

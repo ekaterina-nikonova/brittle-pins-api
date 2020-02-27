@@ -5,6 +5,18 @@ module Types
       context[:current_user].projects.order(:created_at).reverse_order
     end
 
+    field :projectsForBoard, [ProjectType], null: true do
+      argument :boardId, ID, required: true
+    end
+    def projects_for_board(board_id:)
+      context[:current_user]
+        .boards
+        .find(board_id)
+        .projects
+        .order(:created_at)
+        .reverse_order
+    end
+
     field :project, ProjectType, null: true do
       argument :id, ID, required: true
     end
@@ -15,6 +27,13 @@ module Types
     field :boards, [BoardType], null: true
     def boards
       context[:current_user].boards.order(:created_at).reverse_order
+    end
+
+    field :board, BoardType, null: true do
+      argument :id, ID, required: true
+    end
+    def board(id:)
+      context[:current_user].boards.find(id)
     end
 
     field :components, [ComponentType], null: true
@@ -32,6 +51,13 @@ module Types
         .components
         .order(:created_at)
         .reverse_order
+    end
+
+    field :component, ComponentType, null: true do
+      argument :id, ID, required: true
+    end
+    def component(id:)
+      context[:current_user].components.find(id)
     end
 
     field :chapters, [ChapterType], null: true do
