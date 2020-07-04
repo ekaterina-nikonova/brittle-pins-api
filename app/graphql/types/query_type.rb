@@ -1,5 +1,10 @@
 module Types
   class QueryType < Types::BaseObject
+    field :public, [ProjectType], null: true
+    def public
+      Project.where(public: true)
+    end
+
     field :projects, [ProjectType], null: true
     def projects
       context[:current_user].projects.order(:created_at).reverse_order

@@ -5,7 +5,7 @@ module Api::V1
     # but you'll have to authenticate your user separately
     # protect_from_forgery with: :null_session
 
-    before_action :authorize_access_request!
+    before_action :authorize_access_request!, except: %i[execute_public]
 
     def execute
       variables = ensure_hash(params[:variables])
@@ -15,6 +15,17 @@ module Api::V1
         current_user: current_user
       }
       result = BrittlePinsApiSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
+      render json: result
+    rescue => e
+      raise e unless Rails.env.development?
+      handle_error_in_development e
+    end
+
+    def execute_public
+      variables = ensure_hash(params[:variables])
+      query = params[:query]
+      operation_name = params[:operationName]
+      result = BrittlePinsApiSchema.execute(query, variables: variables, operation_name: operation_name)
       render json: result
     rescue => e
       raise e unless Rails.env.development?

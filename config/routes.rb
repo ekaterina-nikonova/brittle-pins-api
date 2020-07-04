@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       post "graphql", to: "graphql#execute"
 
+      post "graphql-public", to: "graphql#execute_public"
+
       get 'me', to: 'users#me'
       post 'signup', to: 'signup#create'
       post 'signup-guest', to: 'signup#create_guest'
