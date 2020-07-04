@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
       resources :projects
 
+      get 'public', to: 'projects#public'
+
       resources :boards do
         get 'components' => :components
       end
