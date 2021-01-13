@@ -3,6 +3,7 @@ module Types
     field :id, ID, null: false
     field :name, String, null: false
     field :description, String, null: true
+    field :public, Boolean, null: false
 
     field :board, BoardType, null: false
     field :components, [ComponentType], null: true
