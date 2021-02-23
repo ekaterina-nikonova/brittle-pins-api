@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "active_storage_attachments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "active_storage_attachments", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.uuid "record_id", null: false
     t.string "record_type", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "active_storage_blobs", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "boards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "boards", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.uuid "component_id", null: false
   end
 
-  create_table "chapters", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "chapters", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.text "intro"
     t.datetime "created_at", precision: 6, null: false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.index ["user_id"], name: "index_chapters_on_user_id"
   end
 
-  create_table "components", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "components", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.uuid "component_id", null: false
   end
 
-  create_table "invitations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "invitations", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "code", null: false
     t.string "email", null: false
     t.datetime "accepted_at"
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.datetime "used_at"
   end
 
-  create_table "projects", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "projects", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
-  create_table "sections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "sections", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.text "paragraph", null: false
     t.text "code"
     t.datetime "created_at", precision: 6, null: false
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 2020_07_04_054146) do
     t.index ["user_id"], name: "index_sections_on_user_id"
   end
 
-  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "username", null: false
     t.string "password_digest", null: false
