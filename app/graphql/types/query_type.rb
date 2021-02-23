@@ -1,9 +1,28 @@
 module Types
   class QueryType < Types::BaseObject
-    field :public, [ProjectType], null: true
-    def public
+
+    # Public data
+
+    field :publicProjects, [ProjectType], null: true
+    def public_projects
       Project.where(public: true)
     end
+
+    field :publicProject, ProjectType, null: true do
+      argument :id, ID, required: true
+    end
+    def public_project(id:)
+      Project.where(public: true).find(id)
+    end
+
+    field :publicChapters, [ChapterType], null: true do
+      argument :projectId, ID, required: true
+    end
+    def public_chapters(project_id: '')
+      Project.where(public: true).find(project_id).chapters.order(:position)
+    end
+
+    # Private data
 
     field :projects, [ProjectType], null: true
     def projects
