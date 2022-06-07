@@ -103,7 +103,7 @@ GEM
     graphql (1.10.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jwt (2.2.1)
     jwt_sessions (2.4.3)
       jwt (>= 2.1.1, < 3)
